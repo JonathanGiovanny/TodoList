@@ -1,0 +1,7 @@
+# Eclipse setup
+/target/
+/build/
+.classpath
+.project
+.settings
+.mvn
