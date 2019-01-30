@@ -1,5 +1,7 @@
 package com.todo.services;
 
+import java.util.List;
+
 import com.todo.model.Task;
 
 public interface TaskService {
@@ -9,6 +11,12 @@ public interface TaskService {
 	 * @param id
 	 */
 	public Task get(Long id);
+
+	/**
+	 * Get all the Tasks
+	 * @param id
+	 */
+	public List<Task> getAll();
 
 	/**
 	 * Save Task 

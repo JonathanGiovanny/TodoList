@@ -1,5 +1,7 @@
 package com.todo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Task get(Long id) {
 		return taskRepo.getOne(id);
+	}
+	
+	@Override
+	public List<Task> getAll() {
+		return taskRepo.findAll();
 	}
 
 	@Override

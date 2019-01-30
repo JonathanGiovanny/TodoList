@@ -1,6 +1,7 @@
 package com.todo.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +22,12 @@ public class Task implements Serializable {
 	@Column
 	@GeneratedValue
 	private Long id;
+
 	@Column
 	private String task;
+
+	@Column(name = "CREATION_DATE")
+	private LocalDateTime creationDate = LocalDateTime.now();
 
 	/**
 	 * Default Constructor
@@ -33,13 +38,15 @@ public class Task implements Serializable {
 
 	/**
 	 * Full arguments constructor
+	 * 
 	 * @param id
 	 * @param task
 	 */
-	public Task(Long id, String task) {
+	public Task(Long id, String task, LocalDateTime creationDate) {
 		super();
 		this.id = id;
 		this.task = task;
+		this.creationDate = creationDate;
 	}
 
 	public Long getId() {
@@ -56,6 +63,14 @@ public class Task implements Serializable {
 
 	public void setTask(String task) {
 		this.task = task;
+	}
+
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	@Override
