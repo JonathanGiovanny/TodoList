@@ -27,7 +27,7 @@ public class Auditable implements Serializable {
 	private static final long serialVersionUID = 74601469141015187L;
 
 	@CreatedDate
-	@Column(name = "CREATION_DATE")
+	@Column(name = "CREATION_DATE", updatable =  false)
 	private LocalDateTime creationDate;
 
 	@LastModifiedDate

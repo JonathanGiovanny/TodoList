@@ -23,13 +23,18 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 
-	@GetMapping("/tasks/{id}")
+	@GetMapping(value = "/tasks/{id}")
 	public Task getTask(@PathVariable Long id) {
 		return taskService.get(id);
 	}
 
 	@GetMapping("/tasks")
 	public List<Task> getAll(Pageable pageable) {
+		for (int i = 0; i < 50; i++) {
+			Task t = new Task();
+			t.setTask(Integer.toHexString((i + 16) % 256));
+			taskService.save(t);
+		}
 		return taskService.getAll(pageable);
 	}
 

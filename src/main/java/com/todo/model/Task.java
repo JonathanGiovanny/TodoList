@@ -15,10 +15,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode (callSuper = false) // Do not add the super fields to the hash and equals 
+@EqualsAndHashCode(callSuper = false) // Do not add the super fields to the hash and equals
 @Entity
 @Table(name = "TASKS")
-@JsonIgnoreProperties({"hibernateLazyInitializer"}) // Ignoring Hibernate Garbage 
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer" }) // Ignoring Hibernate Garbage
 public class Task extends Auditable implements Serializable {
 
 	/**
