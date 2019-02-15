@@ -43,7 +43,7 @@ public class HttpTasksRequestTest {
 		for (int i = 0; i < CACHE_SIZE; i++) {
 			Task t = new Task();
 			t.setTask(Integer.toHexString((i + 16) % 256));
-			this.restTemplate.withBasicAuth("user1", "user1Pass").postForEntity(BASE_URL, buildHeader(t), String.class);
+			this.restTemplate.withBasicAuth("admin", "admin").postForEntity(BASE_URL, buildHeader(t), String.class);
 		}
 
 		mapper = new ObjectMapper();
@@ -67,7 +67,7 @@ public class HttpTasksRequestTest {
 		Task t = new Task();
 		t.setTask("Something1");
 
-		ResponseEntity<String> result = this.restTemplate.withBasicAuth("user1", "user1Pass").postForEntity(BASE_URL,
+		ResponseEntity<String> result = this.restTemplate.withBasicAuth("admin", "admin").postForEntity(BASE_URL,
 				buildHeader(t), String.class);
 
 		// Assert that the call was successful
@@ -76,7 +76,7 @@ public class HttpTasksRequestTest {
 
 	@Test
 	public void getOneRecord() throws Exception {
-		ResponseEntity<String> result = this.restTemplate.withBasicAuth("user1", "user1Pass")
+		ResponseEntity<String> result = this.restTemplate.withBasicAuth("admin", "admin")
 				.getForEntity(BASE_URL + "/2", String.class);
 
 		// Assert that we got a result
@@ -91,7 +91,7 @@ public class HttpTasksRequestTest {
 	public void getAllRecords() throws Exception {
 		// Get all the created values
 		final String pagination = "?page=0&size=" + CACHE_SIZE;
-		ResponseEntity<String> result = this.restTemplate.withBasicAuth("user1", "user1Pass").getForEntity(BASE_URL + pagination,
+		ResponseEntity<String> result = this.restTemplate.withBasicAuth("admin", "admin").getForEntity(BASE_URL + pagination,
 				String.class);
 		
 		// Assert that we got a result
@@ -107,7 +107,7 @@ public class HttpTasksRequestTest {
 		final int page = 1;
 		final int size = 5;
 		final String pagination = "?page=" + page + "&size=" + size;
-		ResponseEntity<String> result = this.restTemplate.withBasicAuth("user1", "user1Pass").getForEntity(BASE_URL + pagination,
+		ResponseEntity<String> result = this.restTemplate.withBasicAuth("admin", "admin").getForEntity(BASE_URL + pagination,
 				String.class);
 
 		// Assert that we got a result
@@ -125,7 +125,7 @@ public class HttpTasksRequestTest {
 		final String record = "/1";
 
 		// Get a record
-		ResponseEntity<String> getResult = this.restTemplate.withBasicAuth("user1", "user1Pass")
+		ResponseEntity<String> getResult = this.restTemplate.withBasicAuth("admin", "admin")
 				.getForEntity(BASE_URL + record, String.class);
 
 		assertEquals(HttpStatus.OK, getResult.getStatusCode());
@@ -136,10 +136,10 @@ public class HttpTasksRequestTest {
 		t.setTask("Something");
 
 		// Modify the record
-		this.restTemplate.withBasicAuth("user1", "user1Pass").put(BASE_URL + record, t);
+		this.restTemplate.withBasicAuth("admin", "admin").put(BASE_URL + record, t);
 
 		// Get the record again from the service
-		ResponseEntity<String> getAfterResult = this.restTemplate.withBasicAuth("user1", "user1Pass")
+		ResponseEntity<String> getAfterResult = this.restTemplate.withBasicAuth("admin", "admin")
 				.getForEntity(BASE_URL + record, String.class);
 
 		assertEquals(HttpStatus.OK, getAfterResult.getStatusCode());
@@ -155,7 +155,7 @@ public class HttpTasksRequestTest {
 		final String record = "/3";
 
 		// Get a record
-		ResponseEntity<String> getResult = this.restTemplate.withBasicAuth("user1", "user1Pass")
+		ResponseEntity<String> getResult = this.restTemplate.withBasicAuth("admin", "admin")
 				.getForEntity(BASE_URL + record, String.class);
 
 		assertEquals(HttpStatus.OK, getResult.getStatusCode());
@@ -166,10 +166,10 @@ public class HttpTasksRequestTest {
 		t.setTask("Something");
 
 		// Modify the record
-		this.restTemplate.withBasicAuth("user1", "user1Pass").put(BASE_URL + record, t);
+		this.restTemplate.withBasicAuth("admin", "admin").put(BASE_URL + record, t);
 
 		// Get the record again from the service
-		ResponseEntity<String> getAfterResult = this.restTemplate.withBasicAuth("user1", "user1Pass")
+		ResponseEntity<String> getAfterResult = this.restTemplate.withBasicAuth("admin", "admin")
 				.getForEntity(BASE_URL + record, String.class);
 
 		assertEquals(HttpStatus.OK, getAfterResult.getStatusCode());

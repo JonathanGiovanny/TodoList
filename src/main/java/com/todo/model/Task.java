@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,7 +20,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false) // Do not add the super fields to the hash and equals
 @Entity
 @Table(name = "TASKS")
-@ToString (callSuper=true)
+@ToString(callSuper = true)
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer" }) // Ignoring Hibernate Garbage
 public class Task extends Auditable implements Serializable {
 
@@ -30,7 +31,8 @@ public class Task extends Auditable implements Serializable {
 
 	@Id
 	@Column
-	@GeneratedValue
+	@SequenceGenerator(name = "TASK_SEQ", sequenceName = "TASK_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "TASK_SEQ")
 	private Long id;
 
 	@Column
