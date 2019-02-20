@@ -11,14 +11,16 @@ public interface TaskService {
 	/**
 	 * Get Task by the info on the Task filter object
 	 * @param id
+	 * @param user
 	 */
-	public Task get(Long id);
+	public Task get(Long id, String user);
 
 	/**
 	 * Get all the Tasks
 	 * @param id
+	 * @param user
 	 */
-	public List<Task> getAll(Pageable pageable);
+	public List<Task> getAll(Pageable pageable, String user);
 
 	/**
 	 * Save Task 
@@ -29,13 +31,15 @@ public interface TaskService {
 	/**
 	 * Update Task 
 	 * @param task
+	 * @param user
 	 */
-	void update(Task task);
+	public void update(Task task, String user);
 
 	/**
 	 * Delete Task by Id
 	 * @param id
+	 * @param String user
 	 */
-	public void delete(Long id);
+	public void delete(Long id, String user);
 
 }

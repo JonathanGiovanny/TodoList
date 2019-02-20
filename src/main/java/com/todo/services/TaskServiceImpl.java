@@ -17,13 +17,13 @@ public class TaskServiceImpl implements TaskService {
 	private TaskRepository taskRepo;
 
 	@Override
-	public Task get(Long id) {
-		return taskRepo.getOne(id);
+	public Task get(Long id, String user) {
+		return taskRepo.findByIdAndCreatedBy(id, user);
 	}
 
 	@Override
-	public List<Task> getAll(Pageable pageable) {
-		return taskRepo.findAll(pageable).get().collect(Collectors.toList());
+	public List<Task> getAll(Pageable pageable, String user) {
+		return taskRepo.findByCreatedBy(pageable, user).get().collect(Collectors.toList());
 	}
 
 	@Override
@@ -32,12 +32,12 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void update(Task task) {
-		taskRepo.save(task);
+	public void update(Task task, String user) {
+		taskRepo.setTaskFor(task.getTask(), user);
 	}
 
 	@Override
-	public void delete(Long id) {
-		taskRepo.delete(get(id));
+	public void delete(Long id, String user) {
+		taskRepo.delete(get(id, user));
 	}
 }

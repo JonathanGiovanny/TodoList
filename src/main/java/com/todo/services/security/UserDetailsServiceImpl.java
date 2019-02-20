@@ -1,7 +1,7 @@
 package com.todo.services.security;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.todo.model.security.Privilege;
 import com.todo.model.security.Role;
 import com.todo.repositories.security.UserRepository;
 
@@ -32,30 +31,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		UserBuilder builder = User.withUsername(username);
 		builder.password(user.getPassword());
-		builder.authorities(getGrantedAuthorities(getPrivilegesForRoles(user.getRoles())));
+		builder.authorities(getGrantedAuthorities(user.getRoles()));
 
 		return builder.build();
 	}
 
 	/**
-	 * Get the set of all the privileges for all the roles that user has
+	 * Create the authorities for the privileges list
+	 * 
 	 * @param roles
 	 * @return
 	 */
-	private Set<Privilege> getPrivilegesForRoles(Set<Role> roles) {
-		Set<Privilege> privileges = new HashSet<>();
-		roles.forEach(r -> privileges.addAll(r.getPrivileges()));
-		return privileges;
-	}
-
-	/**
-	 * Create the authorities for the privileges list
-	 * @param privileges
-	 * @return
-	 */
-	private Set<GrantedAuthority> getGrantedAuthorities(Set<Privilege> privileges) {
-		Set<GrantedAuthority> authorities = new HashSet<>();
-		privileges.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.getName())));
-		return authorities;
+	private Set<GrantedAuthority> getGrantedAuthorities(Set<Role> roles) {
+		return roles.stream().flatMap((Role r) -> r.getPrivileges().stream()).map(p -> p.getName())
+				.distinct().map(p -> new SimpleGrantedAuthority(p)).collect(Collectors.toSet());
 	}
 }

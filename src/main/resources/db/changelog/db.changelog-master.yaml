@@ -1,0 +1,15 @@
+databaseChangeLog:
+    - changeSet:
+        id: insert-security-data
+        author: me
+        dbms: h2
+        changes:
+        - sqlFile:
+           encoding: utf8
+           path: db/changelog/0_CreateSecSchema.sql
+        - sqlFile:
+           encoding: utf8
+           path: db/changelog/1_CreateSchema.sql
+        - sqlFile:
+           encoding: utf8
+           path: db/changelog/2_InsertSecData.sql
